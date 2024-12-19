@@ -1,0 +1,172 @@
+/* Style de base */
+body {
+    background-color: #f8f9fa;
+    font-family: "Barlow Condensed", serif;
+    color: black;
+    max-width: 80%;
+    margin: auto;
+}
+
+h1 {
+    padding: 10px;
+    color: white;
+    text-align: center;
+    border: 1px solid black;
+    background: rgb(99, 111, 124);
+    margin-top: 40px;
+}
+
+/* Section générale pour categories */
+section h2 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    font-weight: bold;
+}
+
+.titre-film {
+    font-size: 2rem;
+    margin-bottom: 50px;
+}
+
+
+/* Section du meilleur film */
+.conteneur-meilleur-film {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 5px solid black;
+    padding: 15px;
+}
+
+.conteneur-meilleur-film 
+h3 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.image-meilleur-film {
+    width: 400px;
+    height: 500px;
+}
+
+.conteneur-image-meilleur-film {
+    margin-right: 80px;
+}
+
+.conteneur-meilleur-film 
+.description {
+    margin-top: 50px;
+    text-decoration: black;
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.bouton-details-first{
+    display: flex;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    text-decoration: none;
+    background-color: red;
+    border-radius: 20px;
+    border-color: white;
+    padding: 10px 30px;
+}
+
+.bouton-details-first:hover {
+    transform: scale(1.05);
+}
+
+.modal
+.image-modale {
+    width: 100px;
+    height: 100px;
+}
+
+/* Grille des films */
+.grille-films {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 600px 600px;
+    gap: 40px;
+}
+
+.carte-film {
+    background-color: white;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.image-film {
+    width: 100%;
+    height: 100%;
+}
+
+.corps-carte {
+    padding: 20px;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    opacity: 1;
+}
+
+
+.bouton-details {
+    position: relative;
+    background-color: rgb(49, 49, 49);
+    font-size: 1.2rem;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    text-decoration: none;
+}
+
+.bouton-details:hover {
+    background-color: #e50914;
+}
+
+
+/* TEST FENETRE MODALE */
+.modal {
+    display: none; /* La modale est cachée par défaut */
+    position: fixed;
+    z-index: 1; /* La modale est au-dessus du contenu */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Fond semi-transparent */
+}
+
+/* Le contenu de la modale */
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+}
+
+/* Le bouton pour fermer la modale */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
