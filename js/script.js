@@ -39,7 +39,7 @@ async function fetchTopMovies() {
                 <img src="${movie.image_url}" alt="${movie.title}" class="image-film">
                 <div class="corps-carte">
                     <h5 class="titre-film">${movie.title}</h5>
-                    <a href="#" class="bouton bouton-details">Détails</a>
+                    <button class="bouton-details" onclick="openModal('${(movie.id)}')">Détails</button>
                 </div>`;
             topMoviesContainer.appendChild(movieCard);
         });
@@ -69,7 +69,7 @@ async function fetchMoviesByCategory(category, containerId) {
                 <img src="${movie.image_url}" alt="${movie.title}" class="image-film"> 
                 <div class="corps-carte">
                     <h5 class="titre-film">${movie.title}</h5>
-                    <a href="#" class="bouton bouton-details">Détails</a>
+                    <button class="bouton-details" onclick="openModal('${(movie.id)}')">Détails</button>
                 </div>
             `;
 
@@ -83,26 +83,51 @@ async function fetchMoviesByCategory(category, containerId) {
 
 // Fonction pour remplir la liste déroulante des catégories libres
 async function fetchCategories() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/genres/`);
-        const data = await response.json();
+    let allCategories = [];
+    let url = `${API_BASE_URL}/genres/`;
 
-        const categorySelect = document.querySelector("#categories-libres .grille-films");
+    try {
+        // Récupérer toutes les pages
+        while (url) {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            // Ajouter les catégories de la page actuelle
+            allCategories.push(...data.results);
+
+            // Met à jour l'URL pour la page suivante (ou null si c'est la dernière page)
+            url = data.next;
+        }
+
+        console.log("Toutes les catégories récupérées :", allCategories);
+
+        // Remplir la liste déroulante avec les catégories
+        const categorySelect = document.querySelector("#category-select");
         categorySelect.innerHTML = ""; // Efface les anciennes options
 
-        data.results.forEach(genre => {
+        // Ajouter une option par défaut
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Sélectionner une catégorie";
+        defaultOption.selected = true;
+        defaultOption.disabled = true;
+        categorySelect.appendChild(defaultOption);
+
+        // Ajouter les catégories dans la liste déroulante
+        allCategories.forEach(genre => {
             const option = document.createElement("option");
             option.value = genre.name;
             option.textContent = genre.name;
             categorySelect.appendChild(option);
         });
 
-        // Ajoute un écouteur pour actualiser les films quand une catégorie est sélectionnée
+        // Ajouter un écouteur pour charger les films d'une catégorie sélectionnée
         categorySelect.addEventListener("change", (event) => {
-            fetchMoviesByCategory(event.target.value, "categorie-libre");
+            const selectedCategory = event.target.value;
+            fetchMoviesByCategory(selectedCategory, "categorie-libre");
         });
     } catch (error) {
-        console.error("Erreur lors de la récupération des catégories:", error);
+        console.error("Erreur lors de la récupération des catégories :", error);
     }
 }
 
@@ -137,3 +162,37 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchMoviesByCategory("sci-fi", "categorie-2");
     fetchCategories();
 });
+
+
+async function fetchMovieDetailsAndFillModal(movieId) {
+    try {
+        // Effectuer une requête pour récupérer les détails du film via l'API
+        const response = await fetch(`${API_BASE_URL}/titles/${movieId}`);
+        const movie = await response.json();
+
+        // Remplir le contenu de la modale avec les informations du film
+        const modal = document.getElementById("myModal");
+        modal.querySelector("h3").textContent = `Détails du Film : ${movie.title}`;
+        modal.querySelector("img").src = movie.image_url || "";
+        modal.querySelector("img").alt = movie.title || "Image du film";
+        modal.querySelector("p:nth-of-type(1)").innerHTML = `<strong>Titre :</strong> ${movie.title}`;
+        modal.querySelector("p:nth-of-type(2)").innerHTML = `<strong>Genre :</strong> ${movie.genres.join(", ")}`;
+        modal.querySelector("p:nth-of-type(3)").innerHTML = `<strong>Date de sortie :</strong> ${movie.year}`;
+        modal.querySelector("p:nth-of-type(4)").innerHTML = `<strong>Classification :</strong> ${movie.rated || "Non disponible"}`;
+        modal.querySelector("p:nth-of-type(5)").innerHTML = `<strong>Score IMDB :</strong> ${movie.imdb_score}`;
+        modal.querySelector("p:nth-of-type(6)").innerHTML = `<strong>Réalisateur :</strong> ${movie.directors.join(", ")}`;
+        modal.querySelector("p:nth-of-type(7)").innerHTML = `<strong>Acteurs :</strong> ${movie.actors.join(", ")}`;
+        modal.querySelector("p:nth-of-type(8)").innerHTML = `<strong>Durée :</strong> ${movie.duration ? `${movie.duration} minutes` : "Non disponible"}`;
+        modal.querySelector("p:nth-of-type(9)").innerHTML = `<strong>Pays d'origine :</strong> ${movie.countries.join(", ")}`;
+        modal.querySelector("p:nth-of-type(10)").innerHTML = `<strong>Recette box-office :</strong> ${movie.worldwide_gross_income ? `${movie.worldwide_gross_income} $` : "Non disponible"}`;
+        modal.querySelector("p:nth-of-type(11)").innerHTML = `<strong>Description :</strong> ${movie.description}`;
+
+    } catch (error) {
+        console.error(`Erreur lors de la récupération des détails pour le film ID ${movieId}:`, error);
+    }
+}
+
+async function openModal(movie) {
+    fetchMovieDetailsAndFillModal(movie)
+    modal.style.display = 'block';
+}
