@@ -172,20 +172,41 @@ async function fetchMovieDetailsAndFillModal(movieId) {
 
         // Remplir le contenu de la modale avec les informations du film
         const modal = document.getElementById("myModal");
-        modal.querySelector("h3").textContent = `Détails du Film : ${movie.title}`;
-        modal.querySelector("img").src = movie.image_url || "";
-        modal.querySelector("img").alt = movie.title || "Image du film";
-        modal.querySelector("p:nth-of-type(1)").innerHTML = `<strong>Titre :</strong> ${movie.title}`;
-        modal.querySelector("p:nth-of-type(2)").innerHTML = `<strong>Genre :</strong> ${movie.genres.join(", ")}`;
-        modal.querySelector("p:nth-of-type(3)").innerHTML = `<strong>Date de sortie :</strong> ${movie.year}`;
-        modal.querySelector("p:nth-of-type(4)").innerHTML = `<strong>Classification :</strong> ${movie.rated || "Non disponible"}`;
-        modal.querySelector("p:nth-of-type(5)").innerHTML = `<strong>Score IMDB :</strong> ${movie.imdb_score}`;
-        modal.querySelector("p:nth-of-type(6)").innerHTML = `<strong>Réalisateur :</strong> ${movie.directors.join(", ")}`;
-        modal.querySelector("p:nth-of-type(7)").innerHTML = `<strong>Acteurs :</strong> ${movie.actors.join(", ")}`;
-        modal.querySelector("p:nth-of-type(8)").innerHTML = `<strong>Durée :</strong> ${movie.duration ? `${movie.duration} minutes` : "Non disponible"}`;
-        modal.querySelector("p:nth-of-type(9)").innerHTML = `<strong>Pays d'origine :</strong> ${movie.countries.join(", ")}`;
-        modal.querySelector("p:nth-of-type(10)").innerHTML = `<strong>Recette box-office :</strong> ${movie.worldwide_gross_income ? `${movie.worldwide_gross_income} $` : "Non disponible"}`;
-        modal.querySelector("p:nth-of-type(11)").innerHTML = `<strong>Description :</strong> ${movie.description}`;
+        // modal.querySelector("h3").textContent = `Détails du Film : ${movie.title}`;
+        // Titre
+        modal.querySelector("#titre-modal").innerHTML = `${movie.title || "Non disponible"}`;
+
+        // Image
+        const modalImage = modal.querySelector(".image_modale");
+        modalImage.src = movie.image_url || "";
+        modalImage.alt = movie.title || "Image du film";
+
+        // Ligne 1 : Date de sortie et Genre
+        const firstLine = modal.querySelector(".modal-first-line");
+        firstLine.querySelector("p:nth-of-type(1)").innerHTML = `${movie.year || "Non disponible"} -&nbsp`;
+        firstLine.querySelector("p:nth-of-type(2)").innerHTML = `${movie.genres?.join(", ") || "Non disponible"}`;
+
+        // Ligne 2 : Classification, Durée et Pays d'origine
+        const secondLine = modal.querySelector(".modal-second-line");
+        secondLine.querySelector("p:nth-of-type(1)").innerHTML = `PG-${movie.rated || "Non disponible"} -&nbsp`;
+        secondLine.querySelector("p:nth-of-type(2)").innerHTML = `${movie.duration ? `${movie.duration} minutes` : "Non disponible"}&nbsp`;
+        secondLine.querySelector("p:nth-of-type(3)").innerHTML = `(${movie.countries?.join(" / ") || "Non disponible"})`;
+
+        // Ligne 3 : Score IMDB et Recette box-office
+        const thirdLine = modal.querySelector(".modal-third-line");
+        thirdLine.querySelector("p:nth-of-type(1)").innerHTML = `IMDB score: ${movie.imdb_score || "Non disponible"}/10`;
+        
+        const contentText = modal.querySelector(".modal-content-text");
+        contentText.querySelector("p:nth-of-type(1)").innerHTML = `<strong>Recette box-office :</strong> ${movie.worldwide_gross_income ? `${movie.worldwide_gross_income} $` : "Non disponible"}`;
+        // Réalisateur
+        contentText.querySelector("p:nth-of-type(2)").innerHTML = `<strong>Réalisé par :</strong> ${movie.directors?.join(", ") || "Non disponible"}`;
+
+        // Description
+        contentText.querySelector("p:nth-of-type(3)").innerHTML = `${movie.description || "Non disponible"}`;
+
+        // Acteurs
+        contentText.querySelector("p:nth-of-type(4)").innerHTML = `<strong>Avec :</strong> ${movie.actors?.join(", ") || "Non disponible"}`;
+
 
     } catch (error) {
         console.error(`Erreur lors de la récupération des détails pour le film ID ${movieId}:`, error);
@@ -196,3 +217,74 @@ async function openModal(movie) {
     fetchMovieDetailsAndFillModal(movie)
     modal.style.display = 'block';
 }
+
+// Gestion du bouton "Voir plus" pour afficher les films supplémentaires en mode tablette
+document.addEventListener("DOMContentLoaded", () => {
+    const categories = document.querySelectorAll("section");
+
+    categories.forEach(category => {
+        const grille = category.querySelector(".grille-films");
+
+        if (!grille) return;
+
+        // Créer et ajouter le bouton "Voir plus" à chaque catégorie
+        const voirPlusButton = document.createElement("button");
+        voirPlusButton.className = "bouton-voir-plus";
+        voirPlusButton.textContent = "Voir plus";
+        category.appendChild(voirPlusButton);
+
+        // Créer et ajouter le bouton "Voir moins" à chaque catégorie
+        const voirMoinsButton = document.createElement("button");
+        voirMoinsButton.className = "bouton-voir-moins";
+        voirMoinsButton.textContent = "Voir moins";
+        category.appendChild(voirMoinsButton);
+
+        // Gestion du clic sur le bouton "Voir plus"
+        voirPlusButton.addEventListener("click", () => {
+            const hiddenFilms = grille.querySelectorAll(".carte-film:nth-of-type(n+3)"); // Cacher au-delà du 2ème film
+            hiddenFilms.forEach(film => (film.style.display = "block")); // Afficher les films cachés
+            voirPlusButton.style.display = "none"; // Masquer le bouton "Voir plus"
+            voirMoinsButton.style.display = "block"; // Afficher le bouton "Voir moins"
+        });
+
+        // Gestion du clic sur le bouton "Voir moins"
+        voirMoinsButton.addEventListener("click", () => {
+            const allFilms = grille.querySelectorAll(".carte-film");
+            allFilms.forEach((film, index) => {
+                if (index >= 2) {
+                    film.style.display = "none"; // Cacher les films au-delà du 2ème
+                }
+            });
+            voirPlusButton.style.display = "block"; // Réafficher le bouton "Voir plus"
+            voirMoinsButton.style.display = "none"; // Masquer le bouton "Voir moins"
+        });
+    });
+
+    // Fonction de redimensionnement pour gérer le responsive
+    function handleResize() {
+        const isMobile = window.innerWidth <= 600;
+
+        categories.forEach(category => {
+            const grille = category.querySelector(".grille-films");
+            const voirPlusButton = category.querySelector(".bouton-voir-plus");
+            const voirMoinsButton = category.querySelector(".bouton-voir-moins");
+            const films = grille.querySelectorAll(".carte-film");
+
+            if (isMobile) {
+                films.forEach((film, index) => {
+                    film.style.display = index < 2 ? "block" : "none"; // Afficher les 2 premiers films
+                });
+                if (voirPlusButton) voirPlusButton.style.display = "block"; // Afficher le bouton "Voir plus"
+                if (voirMoinsButton) voirMoinsButton.style.display = "none"; // Cacher le bouton "Voir moins"
+            } else {
+                films.forEach(film => (film.style.display = "block")); // Afficher tous les films
+                if (voirPlusButton) voirPlusButton.style.display = "none"; // Cacher le bouton
+                if (voirMoinsButton) voirMoinsButton.style.display = "none"; // Cacher le bouton
+            }
+        });
+    }
+
+    // Ajouter un écouteur pour les changements de taille d'écran
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Appeler une fois au chargement
+});

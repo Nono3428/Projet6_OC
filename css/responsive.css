@@ -1,0 +1,196 @@
+/* Media query pour les écrans correspondant aux tablettes */
+@media screen and (max-width: 1024px) {
+    .grille-films {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 colonnes */
+        grid-template-rows: 1fr 1fr;   /* 2 lignes */
+        gap: 40px;                     /* Espacement entre les films */
+    }
+
+    h1 {
+        font-size: 2rem; /* Taille encore plus petite sur tablette */
+    }
+    
+    section h2 {
+        font-size: 2.5rem; /* Taille encore plus petite sur tablette */
+    }
+    
+    .conteneur-meilleur-film
+    h3 {
+        font-size: 2rem;
+    }
+    
+    .titre-film {
+        font-size: 1.5rem; /* Plus petit sur tablette */
+        margin-bottom: 20px;
+    }
+
+    .description {
+        font-size: 1.5rem; /* Plus petit sur tablette */
+    }
+
+    /* Cacher les films au-delà des 4 premiers */
+    .grille-films .carte-film:nth-of-type(n+5) {
+        display: none;
+    }
+
+    /* Bouton "Voir plus" au milieu sous la grille */
+    .bouton-voir-plus {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: red;
+        color: white;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 50px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .image-meilleur-film {
+        width: 300px;
+        height: 400px;
+    }
+
+    .bouton-voir-plus:hover {
+        background-color: #e50914;
+    }
+    
+    .modal-content 
+    img {
+        margin-left: 10px;
+    }
+
+    .modal-content {
+    font-size: small;
+    }
+
+    .modal-second-line {
+        flex-direction: column;
+    }
+}
+
+/* Réinitialiser les styles au-delà des tablettes (pour les ordinateurs) */
+@media screen and (min-width: 1025px) {
+    .grille-films .carte-film {
+        display: block;
+    }
+
+    .bouton-voir-plus {
+        display: none;
+    }
+}
+
+.bouton-voir-moins {
+    display: none; /* Masqué par défaut */
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.bouton-voir-moins:hover {
+    background-color: red;
+}
+
+/* Mobile : 1 colonne */
+@media screen and (max-width: 600px) {
+    .grille-films {
+        display: grid;
+        grid-template-columns: 1fr; /* 1 colonne */
+        grid-template-rows: 1fr 1fr;   /* 2 lignes */
+        gap: 40px;                     /* Espacement entre les films */
+    }
+    
+    h1 {
+        font-size: 1.5rem; /* Taille encore plus petite pour mobile */
+    }
+
+    section h2 {
+        font-size: 2rem; /* Taille encore plus petite sur mobile */
+    }
+
+    .titre-film {
+        font-size: 1.2rem; /* Plus petit sur mobile */
+        margin-bottom: 20px;
+    }
+    
+    .bouton-details {
+        font-size: 1rem;
+        padding: 8px 13px;
+    }
+
+    .conteneur-meilleur-film
+    .description {
+        font-size: 1.2rem; /* Encore plus petit sur mobile */
+    }
+
+    /* Cacher les films au-delà des 2 premiers */
+    .grille-films .carte-film:nth-of-type(n+3) {
+        display: none;
+    }
+
+    .conteneur-meilleur-film
+    h3 {
+        font-size: 2rem;
+    }
+
+    .image-meilleur-film {
+        padding-left: 30px;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .conteneur-meilleur-film {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        border: 5px solid black;
+        padding: 15px;
+    }
+
+    /* Bouton "Voir plus" au milieu sous la grille */
+    .bouton-voir-plus {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: red;
+        color: white;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 50px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .bouton-voir-plus:hover {
+        background-color: #e50914;
+    }
+
+    /* Bouton "Voir moins" */
+    .bouton-voir-moins {
+        display: none;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: red;
+        color: white;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 50px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .bouton-voir-moins:hover {
+        background-color: #e50914;
+    }
+}

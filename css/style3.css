@@ -8,6 +8,7 @@ body {
 }
 
 h1 {
+    /* font-weight: 900; */
     padding: 10px;
     color: white;
     text-align: center;
@@ -65,7 +66,6 @@ h3 {
 .bouton-details-first{
     display: flex;
     color: white;
-    padding: 10px 20px;
     font-size: 1.5rem;
     text-decoration: none;
     background-color: red;
@@ -143,20 +143,31 @@ h3 {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
+    border: 5px solid black;
 }
 
 /* Contenu de la modale */
 .modal-content {
+    position: relative;
+    flex-direction: column;
     background-color: #fff;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 500px;
+    max-width: 600px;
+    padding-bottom: 50px;
+}
+
+.modal-header {
+    flex-direction: row;
 }
 
 .modal-content
 img {
+    /* position: absolute; */
+    right: 30px;
+    top: 30px;
     width: 140px;
     height: 180px;
 }
@@ -165,8 +176,8 @@ img {
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
-    font-weight: bold;
+    /* font-size: 28px; */
+    font-weight: 200;
 }
 
 .close:hover,
@@ -176,6 +187,56 @@ img {
     cursor: pointer;
 }
 
+#titre-modal {
+    text-align: left;
+    font-size: 2rem;
+    font-weight: bold;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.modal-first-line {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+}
+
+.modal-second-line {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+}
+
+.modal-third-line {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+}
+
 footer {
     margin-top: 30px;
+}
+
+#closeModalBtn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e60000;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 5px 60px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#closeModalBtn::before {
+    content: "";
+}
+
+#closeModalBtn::after {
+    content: "Fermer";
+    font-weight: bold;
 }
