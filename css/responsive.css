@@ -1,18 +1,18 @@
-/* Media query pour les écrans correspondant aux tablettes */
+/* Tablettes : 2 colonne */
 @media screen and (max-width: 1024px) {
     .grille-films {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 colonnes */
-        grid-template-rows: 1fr 1fr;   /* 2 lignes */
-        gap: 40px;                     /* Espacement entre les films */
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 40px;
     }
 
     h1 {
-        font-size: 2rem; /* Taille encore plus petite sur tablette */
+        font-size: 2rem;
     }
     
     section h2 {
-        font-size: 2.5rem; /* Taille encore plus petite sur tablette */
+        font-size: 2.5rem;
     }
     
     .conteneur-meilleur-film
@@ -21,12 +21,12 @@
     }
     
     .titre-film {
-        font-size: 1.5rem; /* Plus petit sur tablette */
+        font-size: 1.5rem;
         margin-bottom: 20px;
     }
 
     .description {
-        font-size: 1.5rem; /* Plus petit sur tablette */
+        font-size: 1.5rem;
     }
 
     /* Cacher les films au-delà des 4 premiers */
@@ -34,7 +34,6 @@
         display: none;
     }
 
-    /* Bouton "Voir plus" au milieu sous la grille */
     .bouton-voir-plus {
         display: block;
         margin: 20px auto;
@@ -83,7 +82,7 @@
 }
 
 .bouton-voir-moins {
-    display: none; /* Masqué par défaut */
+    display: none;
     margin: 20px auto;
     padding: 10px 20px;
     background-color: red;
@@ -103,21 +102,21 @@
 @media screen and (max-width: 600px) {
     .grille-films {
         display: grid;
-        grid-template-columns: 1fr; /* 1 colonne */
-        grid-template-rows: 1fr 1fr;   /* 2 lignes */
-        gap: 40px;                     /* Espacement entre les films */
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 40px;
     }
     
     h1 {
-        font-size: 1.5rem; /* Taille encore plus petite pour mobile */
+        font-size: 1.5rem;
     }
 
     section h2 {
-        font-size: 2rem; /* Taille encore plus petite sur mobile */
+        font-size: 2rem;
     }
 
     .titre-film {
-        font-size: 1.2rem; /* Plus petit sur mobile */
+        font-size: 1.2rem;
         margin-bottom: 20px;
     }
     
@@ -128,7 +127,7 @@
 
     .conteneur-meilleur-film
     .description {
-        font-size: 1.2rem; /* Encore plus petit sur mobile */
+        font-size: 1.2rem;
     }
 
     /* Cacher les films au-delà des 2 premiers */
@@ -158,7 +157,6 @@
         padding: 15px;
     }
 
-    /* Bouton "Voir plus" au milieu sous la grille */
     .bouton-voir-plus {
         display: block;
         margin: 20px auto;
@@ -176,7 +174,6 @@
         background-color: #e50914;
     }
 
-    /* Bouton "Voir moins" */
     .bouton-voir-moins {
         display: none;
         margin: 20px auto;

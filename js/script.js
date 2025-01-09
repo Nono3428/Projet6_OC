@@ -131,7 +131,6 @@ async function fetchCategories() {
     }
 }
 
-//FENETRE MODALE MEILLEUR FILM
 // Récupérer les éléments HTML
 var modal = document.getElementById('myModal');
 var openModalBtn = document.getElementById('openModalBtn');
@@ -153,16 +152,6 @@ window.onclick = function(event) {
         modal.style.display = 'none';
     }
 }
-
-// Initialisation des données au chargement de la page
-document.addEventListener("DOMContentLoaded", () => {
-    fetchBestMovie();
-    fetchTopMovies();
-    fetchMoviesByCategory("fantasy", "categorie-1");
-    fetchMoviesByCategory("sci-fi", "categorie-2");
-    fetchCategories();
-});
-
 
 async function fetchMovieDetailsAndFillModal(movieId) {
     try {
@@ -265,10 +254,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const isMobile = window.innerWidth <= 600;
 
         categories.forEach(category => {
-            const grille = category.querySelector(".grille-films");
             const voirPlusButton = category.querySelector(".bouton-voir-plus");
             const voirMoinsButton = category.querySelector(".bouton-voir-moins");
-            const films = grille.querySelectorAll(".carte-film");
+            const films = category.querySelectorAll(".carte-film");
 
             if (isMobile) {
                 films.forEach((film, index) => {
@@ -287,4 +275,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Ajouter un écouteur pour les changements de taille d'écran
     window.addEventListener("resize", handleResize);
     handleResize(); // Appeler une fois au chargement
+});
+
+// Initialisation des données au chargement de la page
+document.addEventListener("DOMContentLoaded", () => {
+    fetchBestMovie();
+    fetchTopMovies();
+    fetchMoviesByCategory("fantasy", "categorie-1");
+    fetchMoviesByCategory("sci-fi", "categorie-2");
+    fetchCategories();
 });
