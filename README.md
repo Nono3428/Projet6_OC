@@ -16,7 +16,16 @@ https://git-scm.com/
 
 ### 1. Installation et Configuration de l'API OCMovies
 
-Pour utiliser ce projet, vous devez d'abord configurer l'API qui sert de backend :
+1. Clonez ce dépôt.    
+    ```
+    git clone https://github.com/Nono3428/Projet6_OC.git
+    ```
+2. Rendez-vous dans le répertoire du projet :  
+    ```
+    cd Projet6_OC
+    ```
+
+Pour utiliser ce projet, vous devez configurer l'API qui sert de backend :
 
 1. Clonez ce dépôt de code à l'aide de la commande :  
     ``` 
@@ -52,27 +61,19 @@ Pour utiliser ce projet, vous devez d'abord configurer l'API qui sert de backend
 
 ---
 
-### 2. Installation de l'interface web
-
-1. Clonez ce dépôt.    
-    ```
-    git clone https://github.com/Nono3428/Projet6_OC.git
-    ```
-
-2. Ouvrez le fichier `index.html` dans un navigateur pour lancer l'interface utilisateur.  
-
-3. Une fois terminer pour désactivez l'environnement virtuel :
+- Une fois terminer, pour désactivez l'environnement virtuel :
     ```
     env\Scripts\deactivate
     ```
 ---
 
 ## Utilisation
+1. Ouvrez le fichier `index.html` dans un navigateur pour lancer l'interface utilisateur.
 
-1. **Naviguer parmi les films :**  
+2. **Naviguer parmi les films :**  
    Parcourez les différentes catégories de films via l'interface web.  
 
-2. **Consulter les détails :**  
+3. **Consulter les détails :**  
    Cliquez sur un film pour afficher une modale contenant ses informations détaillées.  
 
 ---
