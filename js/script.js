@@ -29,11 +29,11 @@ async function fetchTopMovies() {
         const data = await response.json();
 
         const topMoviesContainer = document.querySelector("#films-mieux-notes .grille-films");
-        topMoviesContainer.innerHTML = ""; // Efface les anciens films
+        topMoviesContainer.innerHTML = "";
 
         data.results.forEach(movie => {
             const movieCard = document.createElement("div");
-            movieCard.className = "carte-film"; // Utilise votre classe CSS définie
+            movieCard.className = "carte-film";
 
             movieCard.innerHTML = `
                 <img src="${movie.image_url}" alt="${movie.title}" class="image-film">
@@ -56,13 +56,13 @@ async function fetchMoviesByCategory(category, containerId) {
 
         // Récupérer le conteneur de la catégorie
         const categoryContainer = document.querySelector(`#${containerId} .grille-films`);
-        categoryContainer.innerHTML = ""; // Efface les anciens films
+        categoryContainer.innerHTML = "";
 
         // Parcourir les films récupérés et les afficher dans la section
         data.results.forEach(movie => {
             // Créer la carte de film
             const movieCard = document.createElement("div");
-            movieCard.className = "carte-film"; // Class correspondant à celle de ton HTML
+            movieCard.className = "carte-film";
 
             // Ajouter le contenu de la carte (image, titre, description, bouton)
             movieCard.innerHTML = `
@@ -95,7 +95,7 @@ async function fetchCategories() {
             // Ajouter les catégories de la page actuelle
             allCategories.push(...data.results);
 
-            // Met à jour l'URL pour la page suivante (ou null si c'est la dernière page)
+            // Met à jour l'URL pour la page suivante
             url = data.next;
         }
 
@@ -103,7 +103,7 @@ async function fetchCategories() {
 
         // Remplir la liste déroulante avec les catégories
         const categorySelect = document.querySelector("#category-select");
-        categorySelect.innerHTML = ""; // Efface les anciennes options
+        categorySelect.innerHTML = "";
 
         // Ajouter une option par défaut
         const defaultOption = document.createElement("option");
@@ -161,7 +161,6 @@ async function fetchMovieDetailsAndFillModal(movieId) {
 
         // Remplir le contenu de la modale avec les informations du film
         const modal = document.getElementById("myModal");
-        // modal.querySelector("h3").textContent = `Détails du Film : ${movie.title}`;
         // Titre
         modal.querySelector("#titre-modal").innerHTML = `${movie.title || "Non disponible"}`;
 
@@ -231,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Gestion du clic sur le bouton "Voir plus"
         voirPlusButton.addEventListener("click", () => {
             const hiddenFilms = grille.querySelectorAll(".carte-film:nth-of-type(n+3)"); // Cacher au-delà du 2ème film
-            hiddenFilms.forEach(film => (film.style.display = "block")); // Afficher les films cachés
+            hiddenFilms.forEach(film => (film.style.display = "block"));
             voirPlusButton.style.display = "none"; // Masquer le bouton "Voir plus"
             voirMoinsButton.style.display = "block"; // Afficher le bouton "Voir moins"
         });
