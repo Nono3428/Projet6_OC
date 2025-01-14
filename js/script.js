@@ -251,19 +251,29 @@ document.addEventListener("DOMContentLoaded", () => {
     // Fonction de redimensionnement pour gérer le responsive
     function handleResize() {
         const isMobile = window.innerWidth <= 600;
-
+        const isTablet = window.innerWidth > 600 && window.innerWidth <= 1024;
+    
         categories.forEach(category => {
             const voirPlusButton = category.querySelector(".bouton-voir-plus");
             const voirMoinsButton = category.querySelector(".bouton-voir-moins");
             const films = category.querySelectorAll(".carte-film");
-
+    
             if (isMobile) {
+                // Logique pour les mobiles
                 films.forEach((film, index) => {
                     film.style.display = index < 2 ? "block" : "none"; // Afficher les 2 premiers films
                 });
                 if (voirPlusButton) voirPlusButton.style.display = "block"; // Afficher le bouton "Voir plus"
                 if (voirMoinsButton) voirMoinsButton.style.display = "none"; // Cacher le bouton "Voir moins"
+            } else if (isTablet) {
+                // Logique pour les tablettes
+                films.forEach((film, index) => {
+                    film.style.display = index < 4 ? "block" : "none"; // Afficher les 4 premiers films
+                });
+                if (voirPlusButton) voirPlusButton.style.display = "block"; // Afficher le bouton "Voir plus"
+                if (voirMoinsButton) voirMoinsButton.style.display = "none"; // Cacher le bouton "Voir moins"
             } else {
+                // Logique pour les écrans plus larges (PC)
                 films.forEach(film => (film.style.display = "block")); // Afficher tous les films
                 if (voirPlusButton) voirPlusButton.style.display = "none"; // Cacher le bouton
                 if (voirMoinsButton) voirMoinsButton.style.display = "none"; // Cacher le bouton
